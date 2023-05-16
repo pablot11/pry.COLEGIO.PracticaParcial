@@ -1,0 +1,27 @@
+Escribiremos una parte del nombre en txt y en una grilla mostraremos todos
+los resultados que contengan ese nombre
+
+// En el FORMULARIO
+        private void cmdBuscar_Click(object sender, EventArgs e)
+        {
+            dataGridView1.Rows.Clear();
+
+            string quebusco = txtNombre.Text;
+            string nombre = "";
+
+            foreach(DataRow fila in tabla.Rows)
+            {
+                nombre = fila["nombre"].ToString();
+                int pos = nombre.IndexOf(quebusco);
+                if (pos >-1)
+                {
+                    dataGridView1.Rows.Add(fila["dni"].ToString(), fila["nombre"].ToString());
+                }
+            }
+        }
+
+        private void frmConsultarPorParteNombre_Load(object sender, EventArgs e)
+        {
+            Alumnos objAlumnos = new Alumnos();
+            tabla = objAlumnos.getAll();
+        }

@@ -1,0 +1,27 @@
+//En la clase
+Recordar declarar el DataTable tabla; en las variables arriba
+        public DataTable getAll()
+        {
+            return tabla;
+        }
+
+En el formulario=
+
+private void frmRegistrarAlumnos_Load(object sender, EventArgs e)
+        {
+            try
+            {
+                //Mostrar los datos de barrio en la lista desplegable 
+                clsBarrios = new clsBarrios();
+                lstBarrio.DisplayMember = "nombre";
+                lstBarrio.ValueMember = "barrio";
+                lstBarrio.DataSource = clsBarrios.GetAll();
+                
+            }
+            catch (Exception)
+            {
+
+                MessageBox.Show("Error con la base de datos");
+                this.Close();
+            }
+        }

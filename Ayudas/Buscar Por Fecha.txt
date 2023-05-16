@@ -1,0 +1,18 @@
+//Procedimiento para almacenar y buscar por fechas
+
+            int Localidad= Convert.ToInt32(cbLocalidad.SelectedValue);
+            string Fecha = dtpFecha.Text;
+
+            foreach (DataRow fila in TablaT.Rows)
+            {            
+                if (Localidad == Convert.ToInt32(fila[0]))
+                {
+                    DateTime FechaDT = Convert.ToDateTime(fila["fecha"]);
+                    string FechaDTB = FechaDT.ToString("dd/MM/yyyy");
+                    if (Fecha == FechaDTB)
+                    {
+                        lblMax.Text = fila[2].ToString();
+                        lblMin.Text = fila[3].ToString();
+                    }
+                }
+            }

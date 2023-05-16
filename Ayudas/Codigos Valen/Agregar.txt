@@ -1,0 +1,58 @@
+GRABAR EN UNA TABLA DE ACCES
+        public void RegistrarAlumnos()
+        {
+            //Obtener la referencia a la tabla 
+            DataTable dt = objds.Tables["Alumnos"];
+            //Creamos el nuevo DataRow con la estructura de campos de la tabla Alumnos
+            DataRow BuscarFila = tabla.Rows.Find(DNI);
+            //Si la fila que busca es nula, creamos una nueva fila e insertamos los datos
+            if (BuscarFila is null)
+            {
+                DataRow Fila = tabla.NewRow();
+		//Pasar los valores definidos en variables y propiedades arriba 
+		//Para cargarlos en la BD
+                Fila["dni"] = DNI;
+                Fila["nombre"] = NOMBRE;
+                Fila["sexo"] = SEXO;
+                Fila["foto"] = FOTO;
+                Fila["barrio"] = BARRIO;
+                //Agregamos los nuevos datos a la fila
+                tabla.Rows.Add(Fila);
+                //Actualizar la tabla y guardar los datos ingresados
+                OleDbCommandBuilder cb = new OleDbCommandBuilder(adaptador);
+                //Actualiza la tabla
+                adaptador.Update(tabla);
+
+            }
+LO QUE VA EN EL FORMULARIO PARA REGISTRAR
+
+private void cmdRegistrar_Click(object sender, EventArgs e)
+        {
+            clsAlumnos = new Alumnos();
+            clsAlumnos.Nombre = txtNombre.Text;
+            clsAlumnos.Documento = Convert.ToInt32(txtDNI.Text);
+            if (btnFemenino.Checked == true)
+            {
+                clsAlumnos.Sexo = "F";
+            }
+            else
+            {
+                clsAlumnos.Sexo = "M";
+            }
+            clsAlumnos.Foto = txtFoto.Text;
+            clsAlumnos.Barrio = Convert.ToInt32(lstBarrio.SelectedValue);
+            clsAlumnos.RegistrarAlumnos();
+            if (clsAlumnos.Documento == 0)
+            {
+                MessageBox.Show("El dni ya está registrado.", "ERROR");
+                
+            }
+            else
+            {
+                txtDNI.Text = "";
+                txtNombre.Text = "";
+                txtFoto.Text = "";
+                lstBarrio.SelectedIndex = -1;
+                txtDNI.Focus();
+            }
+        }

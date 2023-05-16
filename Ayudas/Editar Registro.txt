@@ -1,0 +1,15 @@
+//Modificar
+
+	DataRow fila = tabla.Rows.Find(pais);
+	fila.BeginEdit();
+	fila["nombre"] = nombre;
+	fila["capital"] = capital;
+ 	fila.EndEdit();
+	OleDbCommandBuilder cb = new OleDbCommandBuilder(adaptador);
+	adaptador.Update(tabla);
+
+inform
+
+Comparo
+Nuevos datos
+Modificar

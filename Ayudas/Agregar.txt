@@ -1,0 +1,10 @@
+  public void RegistrarBarrio()
+        {
+            DataRow Fila = tabla.NewRow();
+            Fila["barrio"] = BARRIO;
+            Fila["nombre"] = NOMBRE; 
+            tabla.Rows.Add(Fila);
+            OleDbCommandBuilder cb = new OleDbCommandBuilder(adaptador);
+            adaptador.Update(tabla);
+            
+        }

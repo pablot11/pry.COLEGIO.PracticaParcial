@@ -1,0 +1,222 @@
+//ctor
+
+"provider=microsoft.jet.oledb.4.0;data source=CLIMA.mdb"
+conector = new OleDbConnection(Properties.Settings.Default.CADENA);
+comando = new OleDbCommand();
+
+comando.Connection = conector;
+comando.CommandType = CommandType.TableDirect;
+comando.CommandText = "Tabla";
+
+adaptador = new OleDbDataAdapter(comando);
+tabla = new DataTable();
+adaptador.Fill(tabla);
+
+DataColumn[] dc = new DataColumn[1];
+dc[0] = tabla.Columns["columna"];
+tabla.PrimaryKey = dc;
+
+//Agregar
+
+DataRow fila = tabla.NewRow(); //Crea variable registro y agrega nueva fila
+fila["barrio"] = dni;
+fila["nombre"] = nombre;
+fila["sexo"] = sexo;
+fila["foto"] = foto;
+fila["barrio"] = barrio;
+tabla.Rows.Add(fila);
+
+OleDbCommandBuilder cb = new OleDbCommandBuilder(adaptador); 
+adaptador.Update(tabla);
+
+InForm
+
+Objeto.Vars
+Objeto.Agregar
+
+//Buscar
+
+	DataRow fila = tabla.Rows.Find(dni);
+	if (fila == null)
+	{
+		nombre = "";
+		foto = "";
+	}
+	else
+	{
+		dni = Convert.ToInt32(fila["dni"]);
+		nombre = fila["nombre"].ToString();
+		sexo = fila["sexo"].ToString();
+		foto = fila["foto"].ToString();
+		barrio = Convert.ToInt32(fila["barrio"]);
+	}
+
+inform
+
+	A.DNI = Convert.ToInt32(textBox2.Text);
+	A.Buscar();
+	textBox1.Text = A.NOMBRE;
+	if (A.NOMBRE == "")
+	{
+		pictureBox1.Image = null;
+	}
+	else
+	{
+		pictureBox1.Load("JPG/" + A.FOTO);
+	}
+
+
+//Dos tablas
+	Parametros en combo
+	Combo.displaymember
+	combo.valuemember
+	datasource = tabla
+
+inform
+
+	Frutas f = new Frutas();
+	LeGustan lg = new LeGustan();
+
+	DataTable tf = f.getFrutas();
+	DataTable tlg = lg.getLeGustan();
+
+	foreach(DataRow ff in tf.Rows)
+	{
+ 		int can = 0;
+		foreach(DataRow flg in tlg.Rows)
+		{
+			if(ff["fruta"].ToString()==flg["fruta"].ToString())
+			{
+				can++;
+			}
+		}
+	}
+	gv.Rows.Add(ff["nombre"], can);
+
+//Treenode
+	TreeNode abuelo;
+	TreeNode padre;
+	TreeNode hijo;
+
+	abuelo = tv.Nodes.Add("AUTORES");
+
+	DataTable taut = a.getAutores();
+	DataTable tvid = v.getVideos();
+
+	foreach(DataRow faut in taut.Rows)
+	{
+  		padre = abuelo.Nodes.Add(faut["nombre"].ToString());
+ 		foreach(DataRow fvid in tvid.Rows)
+		{
+			if(faut["autor"].ToString()==fvid["autor"].ToString())
+			{
+				hijo = padre.Nodes.Add(fvid["nombre"].ToString());
+				hijo.Tag = fvid["archivo"].ToString();
+			}	
+		}
+	}
+
+//Treenode
+	TreeNode abuelo;
+	TreeNode padre;
+ 	TreeNode hijo;
+
+	abuelo = tv.Nodes.Add("AUTORES");
+
+	DataTable taut = a.getAutores();
+	DataTable tvid = v.getVideos();
+
+	foreach(DataRow faut in taut.Rows)
+	{
+		padre = abuelo.Nodes.Add(faut["nombre"].ToString());
+		foreach(DataRow fvid in tvid.Rows)
+		{
+			if(faut["autor"].ToString()==fvid["autor"].ToString())
+			{
+                		hijo = padre.Nodes.Add(fvid["nombre"].ToString());
+                 	 	hijo.Tag = fvid["archivo"].ToString();
+             	}
+		}
+       }
+            	
+//Modificar
+
+	DataRow fila = tabla.Rows.Find(pais);
+	fila.BeginEdit();
+	fila["nombre"] = nombre;
+	fila["capital"] = capital;
+ 	fila.EndEdit();
+	OleDbCommandBuilder cb = new OleDbCommandBuilder(adaptador);
+	adaptador.Update(tabla);
+
+inform
+
+Comparo
+Nuevos datos
+Modificar
+
+//Procedimiento para almacenar y buscar por fechas
+
+            int Localidad= Convert.ToInt32(cbLocalidad.SelectedValue);
+            string Fecha = dtpFecha.Text;
+
+            foreach (DataRow fila in TablaT.Rows)
+            {            
+                if (Localidad == Convert.ToInt32(fila[0]))
+                {
+                    DateTime FechaDT = Convert.ToDateTime(fila["fecha"]);
+                    string FechaDTB = FechaDT.ToString("dd/MM/yyyy");
+                    if (Fecha == FechaDTB)
+                    {
+                        lblMax.Text = fila[2].ToString();
+                        lblMin.Text = fila[3].ToString();
+                    }
+                }
+            }
+
+//Escribe archivo
+
+           StreamWriter sw = new StreamWriter("LaDoctaVerduras.txt", false);
+            //Sirve para recorrer una coleccion
+            //Coleccion = Vector
+            foreach (string fruta in Frutas)
+            {
+                MessageBox.Show(fruta);
+                sw.WriteLine(fruta);
+            }
+
+            sw.Close();
+            sw.Dispose();
+
+//Lee archivo
+
+            StreamReader sr = new StreamReader("LaDocta.txt");
+            string Linea = "";
+            //Dice cuando llega a fin de archivo    
+            while (sr.EndOfStream != true)
+            {
+                Linea = sr.ReadLine();
+                MessageBox.Show(Linea);
+            }
+            sr.Close();
+            sr.Dispose();
+
+//OpenFileDialog
+
+            openFileDialog1.FileName = "";
+            //Filta los archivos 
+            openFileDialog1.Filter = "Archivos tipo txt |*.txt | Archivos Acrobat |*.pdf";
+            //Elemento para abrir archivos
+            openFileDialog1.ShowDialog();
+            MessageBox.Show(openFileDialog1.FileName);
+
+//SaveFileDialog
+
+            saveFileDialog1.ShowDialog();
+            MessageBox.Show(saveFileDialog1.FileName);
+
+//FolderBrowserDialog
+
+            //Elemento para guardar archivos
+            folderBrowserDialog1.ShowDialog();
+            MessageBox.Show(folderBrowserDialog1.SelectedPath);

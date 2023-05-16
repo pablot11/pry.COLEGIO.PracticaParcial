@@ -1,0 +1,19 @@
+//OpenFileDialog
+
+            openFileDialog1.FileName = "";
+            //Filta los archivos 
+            openFileDialog1.Filter = "Archivos tipo txt |*.txt | Archivos Acrobat |*.pdf";
+            //Elemento para abrir archivos
+            openFileDialog1.ShowDialog();
+            MessageBox.Show(openFileDialog1.FileName);
+
+//SaveFileDialog
+
+            saveFileDialog1.ShowDialog();
+            MessageBox.Show(saveFileDialog1.FileName);
+
+//FolderBrowserDialog
+
+            //Elemento para guardar archivos
+            folderBrowserDialog1.ShowDialog();
+            MessageBox.Show(folderBrowserDialog1.SelectedPath);

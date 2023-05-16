@@ -1,0 +1,15 @@
+        public void VerTodo(DataGridView grilla)
+        {
+            grilla.Rows.Clear();
+            foreach (DataRow fila in tabla.Rows)
+            {
+                grilla.Rows.Add(fila["fruta"], fila["nombre"]);
+            }
+        }
+
+
+        private void frmTodasLasFrutas_Load(object sender, EventArgs e)
+        {
+            clsFrutas objFrutas = new clsFrutas();
+            objFrutas.VerTodo(dgvGrilla);
+        }

@@ -1,0 +1,45 @@
+       public void Buscar(int dni)
+        {
+            DataRow filabuscar = tabla.Rows.Find(dni);
+            if (filabuscar != null)
+            {
+                DNI = dni;
+                NOMBRE = Convert.ToString(filabuscar["nombre"]);
+                if (filabuscar["sexo"].ToString() == "F")
+                {
+                    SEXO = "Femenino";
+                }
+                else
+                {
+                    SEXO = "Masculino";
+                }        
+                BARRIO = Convert.ToInt32(filabuscar["barrio"]);
+                FOTO = filabuscar["foto"].ToString();
+            }
+            else
+            {
+                DNI = 0;
+                NOMBRE = "";
+                SEXO = "";
+                BARRIO = 0;
+                FOTO = "";
+            }
+        
+        }
+
+
+////////////////////////////////////////////////////////////////////////////////////////////////////////////
+
+   private void btnBuscar_Click(object sender, EventArgs e)
+        {
+            b.Barrio = Convert.ToInt32(txtBarrio.Text);
+            b.buscar();
+            if(b.Nombre=="")
+            {
+                MessageBox.Show("NO EXISTE EL BARRIO", "ERROR");
+            }
+            txtNombre.Text = b.Nombre;
+
+
+        }
+

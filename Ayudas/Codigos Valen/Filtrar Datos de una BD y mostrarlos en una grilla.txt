@@ -1,0 +1,34 @@
+Este procedimiento filtra los datos (Elegido en una lista desplegable)
+y los muestra en una grilla, por ej: selecciona un Alumno y muestra que 
+frutas le gusta
+
+public void MostrarFrutasAlumnos(DataGridView grilla, Int32 busco)
+        {
+            
+            grilla.Rows.Clear();
+
+            foreach (DataRow fila in tabla.Rows)
+            {
+                if (busco == Convert.ToInt32(fila["dni"]))
+                {
+
+                    string fruta = objFruta.BuscarFruta(Convert.ToInt32(fila["fruta"]));
+                    grilla.Rows.Add(fruta);
+
+                }
+
+            }
+        }
+
+        private void cmdBuscar_Click(object sender, EventArgs e)
+        {
+            clsFrutasPorAlumno objFrutasAlumno = new clsFrutasPorAlumno();
+            objFrutasAlumno = new clsFrutasPorAlumno();
+
+            int dni = Convert.ToInt32(lstAlumno.SelectedValue);
+            objFrutasAlumno.MostrarFrutasAlumnos(dgvGrilla, dni);
+        }
+
+Previamente llenamos la lista desplegable con los datos de la BD
+
+

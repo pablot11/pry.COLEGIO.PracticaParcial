@@ -1,0 +1,25 @@
+//Escribe archivo
+
+           StreamWriter sw = new StreamWriter("LaDoctaVerduras.txt", false);
+            //Sirve para recorrer una coleccion
+            //Coleccion = Vector
+            foreach (string fruta in Frutas)
+            {
+                MessageBox.Show(fruta);
+                sw.WriteLine(fruta);
+            }
+
+            sw.Close();
+            sw.Dispose();
+
+//Lee archivo
+
+            StreamReader sr = new StreamReader("LaDocta.txt");
+            string Linea = "";
+            //Dice cuando llega a fin de archivo    
+            while (sr.EndOfStream != true)
+            {
+                Linea = sr.ReadLine();
+                MessageBox.Show(Linea);
+            }
+            sr.Close();

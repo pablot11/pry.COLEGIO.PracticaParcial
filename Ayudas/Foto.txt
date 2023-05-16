@@ -1,0 +1,1 @@
+pictureBox1.ImageLocation = "Fotos/" + objJugadores.Foto;

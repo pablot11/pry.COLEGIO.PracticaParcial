@@ -1,0 +1,26 @@
+//Dos tablas
+	Parametros en combo
+	Combo.displaymember
+	combo.valuemember
+	datasource = tabla
+
+inform
+
+	Frutas f = new Frutas();
+	LeGustan lg = new LeGustan();
+
+	DataTable tf = f.getFrutas();
+	DataTable tlg = lg.getLeGustan();
+
+	foreach(DataRow ff in tf.Rows)
+	{
+ 		int can = 0;
+		foreach(DataRow flg in tlg.Rows)
+		{
+			if(ff["fruta"].ToString()==flg["fruta"].ToString())
+			{
+				can++;
+			}
+		}
+	}
+	gv.Rows.Add(ff["nombre"], can);

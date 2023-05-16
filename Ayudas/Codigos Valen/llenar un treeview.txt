@@ -1,0 +1,48 @@
+ private void frmArbolitoFruta_Load(object sender, EventArgs e)
+        {
+            //Declarar nodos en el Load
+            TreeNode abuelo;
+            TreeNode padre;
+            clsFrutasPorAlumno objFrutasAlumnos;
+            Alumnos objAlumnos;
+            clsFrutas objFrutas;
+            TreeNode hijo;
+
+            //Declarar las clases de las que sacamos informacion 
+            objFrutasAlumnos = new clsFrutasPorAlumno();
+            objFrutas = new clsFrutas();
+            objAlumnos = new Alumnos();
+
+	//Declarar nodo raiz en el TreeView y adjuntarle el icono correspondiente
+            abuelo = tv.Nodes.Add("Frutas");
+	//Creamos un DataTable para traer TODA la tabla de cada una
+            DataTable tFruta = objFrutas.GetAll();
+            DataTable tAlumnos = objAlumnos.getAll();
+            DataTable tLeGustan = objFrutasAlumnos.GetAll();
+
+
+	//Procedimiento para cargar el TreeView Con las FRUTAS, y que al abrir cada fruta muestre el Nombre de cada alumno que le gusta
+
+            foreach (DataRow Ffruta in tFruta.Rows)
+            {
+                padre = abuelo.Nodes.Add(Ffruta["nombre"].ToString());
+                foreach (DataRow Falumnos in tLeGustan.Rows)
+                {
+                    if (Falumnos["fruta"].ToString() == Ffruta["fruta"].ToString())
+                    {
+                        foreach (DataRow drAlumnos in tAlumnos.Rows)
+                        {
+                            if (Falumnos["dni"].ToString() == drAlumnos["dni"].ToString())
+                            {
+                                hijo = padre.Nodes.Add(drAlumnos["nombre"].ToString());
+                            }
+                        }
+                    }
+                        
+                }
+            } 
+
+
+
+        }
+    }

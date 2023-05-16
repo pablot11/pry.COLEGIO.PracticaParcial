@@ -1,0 +1,33 @@
+Elegir una fruta en una lista desplegable y Buscar a cuantos alumnos le gusta
+esa fruta
+
+        public void Sumar(DataGridView grilla, int fruta)
+        {
+            int indice = 0;
+            grilla.Rows.Clear();
+            foreach (DataRow fila in tabla.Rows)
+            {
+                if (fruta == Convert.ToInt32(fila["fruta"]))
+                {
+                    indice++;
+                }
+            }
+            string f = objFruta.BuscarFruta(Convert.ToInt32(fruta));
+            grilla.Rows.Add(f, indice);
+        }
+
+        private void frmCantidadDeFrutas_Load(object sender, EventArgs e)
+        {
+            clsFrutas objFrutas = new clsFrutas();
+            lstFrutas.DisplayMember = "nombre";
+            lstFrutas.ValueMember = "fruta";
+            lstFrutas.DataSource = objFrutas.GetAll();
+        }
+
+        private void frmBuscar_Click(object sender, EventArgs e)
+        {
+            clsFrutasPorAlumno objFrutasAlumnos = new clsFrutasPorAlumno();
+
+            int fruta = Convert.ToInt32(lstFrutas.SelectedValue);
+            objFrutasAlumnos.Sumar(dataGridView1, fruta);
+        }
